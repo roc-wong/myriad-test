@@ -1,0 +1,77 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=CN, ST=ShangHai, L=ShangHai, O=Zts Inc. , OU=R & D, CN=Zts Self-signed Authority
+        Validity
+            Not Before: Jan 21 09:23:58 2019 GMT
+            Not After : Jan 18 09:23:58 2029 GMT
+        Subject: C=CN, ST=ShangHai, O=Zts Inc. , OU=R & D, CN=ztsrd.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:bf:fd:cb:03:2f:bb:95:85:d3:4b:ab:25:c2:26:
+                    ab:29:4a:5b:f9:2f:77:05:5a:47:b4:8e:72:16:f2:
+                    55:96:58:c5:ea:9f:14:64:a0:1c:d1:26:5f:02:e8:
+                    ba:ba:31:34:ca:2e:05:ae:9c:ec:c1:de:38:ae:7d:
+                    61:63:ea:76:a6:20:d5:d9:38:2a:43:9a:8d:1b:43:
+                    d8:cf:93:7c:ef:e1:fc:ff:2a:ab:09:8c:a7:23:d4:
+                    9a:84:23:7e:a2:85:c7:92:82:5e:b8:17:3e:56:40:
+                    f5:37:46:f9:0b:bf:b9:4e:2e:46:df:4e:83:5e:4c:
+                    2c:30:44:f4:92:78:d6:f4:23:90:91:70:8c:cc:21:
+                    61:e0:4e:61:8b:8d:1d:4a:0b:04:0e:a3:13:0e:ec:
+                    23:6f:32:8a:98:cd:62:a0:e0:e2:cc:b4:de:6d:8e:
+                    ae:93:63:37:93:7b:9a:c0:cc:67:9b:38:ca:ab:5f:
+                    70:8d:d1:3c:82:2a:c5:6f:84:94:0e:db:9b:75:c3:
+                    db:0f:fc:ca:bf:4d:b7:44:ef:85:b4:bd:b4:f9:67:
+                    07:a8:fb:f4:23:a7:9d:53:d6:7a:46:94:19:f2:72:
+                    7e:11:74:50:c1:9d:3b:2e:c5:32:98:b7:35:d6:b6:
+                    9a:6f:a3:f5:32:f8:4a:4e:dc:9a:0e:c2:bd:1e:d8:
+                    7d:21
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Non Repudiation, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:ztsrd.com, DNS:*.ztsrd.com
+    Signature Algorithm: sha256WithRSAEncryption
+         35:b8:33:c2:92:ab:aa:44:b2:11:d9:7b:97:0b:a6:90:fd:84:
+         ea:7c:79:a8:9c:a4:66:d0:5c:92:03:c3:7e:58:63:e3:2a:d5:
+         9e:77:d6:5b:d2:cc:93:cc:b5:ec:e9:2c:26:74:7a:d6:d9:45:
+         b0:41:d9:ac:d8:6c:39:d0:6f:6d:b1:c2:6c:c7:41:81:93:25:
+         31:3b:ae:87:94:48:38:b6:10:4b:3c:87:73:8c:5b:8a:c3:c5:
+         cc:42:f0:8f:8b:c2:de:40:24:bf:ec:f0:26:15:d9:f2:b6:2f:
+         d9:4e:5a:b8:f9:3e:39:22:ca:c4:61:37:55:a6:b1:57:3c:41:
+         64:91:e8:1e:a7:b0:8a:3e:25:ae:b9:dd:ae:0d:23:23:c1:44:
+         29:a8:24:5e:9e:fe:d5:7e:81:ff:9f:c3:d8:dc:b8:d8:b4:94:
+         c9:10:d4:67:4b:f8:3b:28:70:34:74:8c:40:72:cb:9d:0d:2b:
+         35:97:83:36:b5:16:7d:45:fc:6d:2e:78:f0:66:f8:24:70:ba:
+         d4:2f:ca:2b:87:b4:9d:0b:07:10:ac:bc:b4:46:38:53:90:c1:
+         19:71:fa:af:9e:61:a6:2b:ea:9c:5f:c3:50:94:b4:9a:50:88:
+         62:cc:c4:de:70:53:88:4d:93:1e:be:0a:ec:a7:90:2c:98:c3:
+         31:31:4b:d1
+-----BEGIN CERTIFICATE-----
+MIIDizCCAnOgAwIBAgIBATANBgkqhkiG9w0BAQsFADB7MQswCQYDVQQGEwJDTjER
+MA8GA1UECAwIU2hhbmdIYWkxETAPBgNVBAcMCFNoYW5nSGFpMRIwEAYDVQQKDAla
+dHMgSW5jLiAxDjAMBgNVBAsMBVIgJiBEMSIwIAYDVQQDDBladHMgU2VsZi1zaWdu
+ZWQgQXV0aG9yaXR5MB4XDTE5MDEyMTA5MjM1OFoXDTI5MDExODA5MjM1OFowWDEL
+MAkGA1UEBhMCQ04xETAPBgNVBAgMCFNoYW5nSGFpMRIwEAYDVQQKDAladHMgSW5j
+LiAxDjAMBgNVBAsMBVIgJiBEMRIwEAYDVQQDDAl6dHNyZC5jb20wggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQC//csDL7uVhdNLqyXCJqspSlv5L3cFWke0
+jnIW8lWWWMXqnxRkoBzRJl8C6Lq6MTTKLgWunOzB3jiufWFj6namINXZOCpDmo0b
+Q9jPk3zv4fz/KqsJjKcj1JqEI36ihceSgl64Fz5WQPU3RvkLv7lOLkbfToNeTCww
+RPSSeNb0I5CRcIzMIWHgTmGLjR1KCwQOoxMO7CNvMoqYzWKg4OLMtN5tjq6TYzeT
+e5rAzGebOMqrX3CN0TyCKsVvhJQO25t1w9sP/Mq/TbdE74W0vbT5Zweo+/Qjp51T
+1npGlBnycn4RdFDBnTsuxTKYtzXWtppvo/Uy+EpO3JoOwr0e2H0hAgMBAAGjPTA7
+MAkGA1UdEwQCMAAwCwYDVR0PBAQDAgXgMCEGA1UdEQQaMBiCCXp0c3JkLmNvbYIL
+Ki56dHNyZC5jb20wDQYJKoZIhvcNAQELBQADggEBADW4M8KSq6pEshHZe5cLppD9
+hOp8eaicpGbQXJIDw35YY+Mq1Z531lvSzJPMtezpLCZ0etbZRbBB2azYbDnQb22x
+wmzHQYGTJTE7roeUSDi2EEs8h3OMW4rDxcxC8I+Lwt5AJL/s8CYV2fK2L9lOWrj5
+PjkiysRhN1WmsVc8QWSR6B6nsIo+Ja653a4NIyPBRCmoJF6e/tV+gf+fw9jcuNi0
+lMkQ1GdL+DsocDR0jEByy50NKzWXgza1Fn1F/G0uePBm+CRwutQvyiuHtJ0LBxCs
+vLRGOFOQwRlx+q+eYaYr6pxfw1CUtJpQiGLMxN5wU4hNkx6+CuynkCyYwzExS9E=
+-----END CERTIFICATE-----
