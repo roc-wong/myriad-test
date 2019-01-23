@@ -26,6 +26,14 @@ public class TruststoreConstant {
      */
     public static final String CUSTOMER_TRUSTSTORE = "roc.truststore";
 
+    /**
+     * 由服务端证书nginx.crt生成个人的信任证书库，命令：
+     *
+     * {@code keytool -keystore nginx.truststore -storepass sunshine -alias api-dev -import -trustcacerts -file nginx.cer}
+     *
+     */
+    public static final String NGINX_TRUSTSTORE = "nginx.truststore";
+
 
     /**
      * 信任证书库访问密码

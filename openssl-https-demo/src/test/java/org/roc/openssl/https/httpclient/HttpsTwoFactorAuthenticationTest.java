@@ -74,7 +74,7 @@ public class HttpsTwoFactorAuthenticationTest {
     public void testWithTruststore() throws URISyntaxException, IOException, UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 
         SSLContext sslContext = getSSLContext(TruststoreConstant.CLIENT_CERT, TruststoreConstant.CLIENT_CERT_PASSWORD,
-                TruststoreConstant.CUSTOMER_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
+                TruststoreConstant.NGINX_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
 
         CloseableHttpClient closeableHttpClient = HttpClients.custom()
                 .setSSLContext(sslContext).build();
@@ -125,7 +125,7 @@ public class HttpsTwoFactorAuthenticationTest {
     public void testWithTruststoreNative() throws CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, IOException {
 
         SSLContext sslContext = getSSLContext(TruststoreConstant.CLIENT_CERT, TruststoreConstant.CLIENT_CERT_PASSWORD,
-                TruststoreConstant.CUSTOMER_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
+                TruststoreConstant.NGINX_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
 
         HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
         URL url = new URL("https://api-dev.ztsrd.com");

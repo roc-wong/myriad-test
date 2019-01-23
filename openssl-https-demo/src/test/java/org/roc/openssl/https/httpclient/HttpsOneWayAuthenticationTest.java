@@ -43,7 +43,7 @@ public class HttpsOneWayAuthenticationTest {
     @Test
     public void testWithTruststore() throws CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, IOException, URISyntaxException {
 
-        SSLContext sslContext = getSSLContext(TruststoreConstant.CUSTOMER_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
+        SSLContext sslContext = getSSLContext(TruststoreConstant.NGINX_TRUSTSTORE, TruststoreConstant.CUSTOMER_TRUSTSTORE_PASSWORD);
 
         CloseableHttpClient closeableHttpClient = HttpClients.custom()
                 .setSSLContext(sslContext).build();
