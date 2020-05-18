@@ -18,6 +18,16 @@
             <artifactId>JavaEWAH</artifactId>
             <version>1.1.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.roaringbitmap/RoaringBitmap -->
+        <dependency>
+            <groupId>org.roaringbitmap</groupId>
+            <artifactId>RoaringBitmap</artifactId>
+            <version>0.8.18</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

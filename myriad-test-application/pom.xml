@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.roc</groupId>
     <artifactId>myriad-test-application</artifactId>
 
     <dependencies>
