@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,44 +8,253 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+    </parent>
+
     <modules>
-        <module>openssl-https-demo</module>
+        <module>myriad-test-application</module>
+        <module>openssl-https</module>
+        <module>redisson</module>
+        <module>log4j2</module>
+        <module>algorithm</module>
+        <module>bit-operation</module>
         <module>myriad-pom</module>
+        <module>openssl-https-demo</module>
     </modules>
 
-
     <properties>
-        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
-        <!-- Plugin的属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <additionalparam>-Xdoclint:none</additionalparam>
+        <spring.version>5.0.10.RELEASE</spring.version>
+        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <disruptor.version>3.4.2</disruptor.version>
+        <docker.repository>10.29.139.47:5001</docker.repository>
+        <docker.registry.name>roc-test</docker.registry.name>
+        <docker.registry.name>framework</docker.registry.name>
+        <lombok.version>1.18.8</lombok.version>
+        <gson.version>2.8.5</gson.version>
+        <guava.version>27.1-jre</guava.version>
+        <commons-io.version>2.6</commons-io.version>
+        <joda-time.version>2.10.2</joda-time.version>
+        <disruptor.version>3.4.2</disruptor.version>
+        <testng.version>6.10</testng.version>
+        <jcl-over-slf4j.version>1.7.29</jcl-over-slf4j.version>
+        <jul-to-slf4j.version>1.7.29</jul-to-slf4j.version>
+        <truth.version>0.42</truth.version>
+        <httpclient.version>4.5.3</httpclient.version>
+        <!-- IntelliJ grouses the following dynamic properties.
+        Workaround: Settings > Build, Execution, Development > Build Tools > Maven > Runner > Properties.
+        Add git.commit.time and git.commit.id.abbrev with empty value. -->
+        <version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.truth</groupId>
+                <artifactId>truth</artifactId>
+                <version>${truth.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--log4j2-->
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${jcl-over-slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${jul-to-slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.truth</groupId>
+                <artifactId>truth</artifactId>
+                <version>${truth.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <executions>
+                        <execution>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <!--create docker harbor tag: project.version-{git-version} and latest-->
+                            <id>tag-image</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <forceTags>true</forceTags>
+                                <image>${project.artifactId}:${project.version}-${version.number}</image>
+                                <newName>
+                                    ${docker.repository}/${docker.registry.name}/${project.artifactId}:${project.version}-${version.number}
+                                </newName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>tag-image-latest</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <forceTags>true</forceTags>
+                                <image>${project.artifactId}:latest</image>
+                                <newName>${docker.repository}/${docker.registry.name}/${project.artifactId}:latest
+                                </newName>
+                            </configuration>
+                        </execution>
+                        <!--push project.version and latest to harbor-->
+                        <execution>
+                            <id>push-image</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <imageName>
+                                    ${docker.repository}/${docker.registry.name}/${project.artifactId}:${project.version}-${version.number}
+                                </imageName>
+                                <imageName>${docker.repository}/${docker.registry.name}/${project.artifactId}:latest
+                                </imageName>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!--Dockerfile location-->
+                        <dockerDirectory>${project.basedir}/target/classes/docker</dockerDirectory>
+                        <imageName>${project.artifactId}</imageName>
+                        <imageTags>
+                            <!--docker tag: 项目版本号、latest-->
+                            <imageTag>${project.version}-${version.number}</imageTag>
+                            <!--实际测试过程中发现，latest tag会默认生成-->
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <!-- optionally overwrite tags every time image is built with docker:build -->
+                        <forceTags>true</forceTags>
+                        <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的服务地址 -->
+                        <serverId>zts-docker-hub</serverId>
+                        <registryUrl>${docker.repository}</registryUrl>
+                        <resources>
+                            <!-- 将打包文件放入dockerDirectory指定的位置 -->
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>*.zip</include>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-archetype-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>utf-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                    <nonFilteredFileExtensions>
+                        <!--Maven 在编译项目时，可能会将jks/cert文件编译，导致jks文件乱码不可用-->
+                        <nonFilteredFileExtension>cert</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <showWarnings>true</showWarnings>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.1.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <!--  human-readable part of the version number -->
+                    <dateFormat>yyyyMMdd-HHmmss</dateFormat>
+                    <!--see https://github.com/git-commit-id/maven-git-commit-id-plugin/issues/244-->
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -65,24 +273,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration/>
+                <version>3.0.1</version>
+                <!--<executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <show>public</show>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <links>
+                        <link>http://docs.oracle.com/javase/7/docs/api</link>
+                    </links>
+                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <!-- <goals>deploy</goals>
-                    <pushChanges>false</pushChanges>
-                    <localCheckout>true</localCheckout>
-                    <branchName>develop</branchName>-->
-                    <scmCommentPrefix>release(all):</scmCommentPrefix>
+                    <scmCommentPrefix>release(all): </scmCommentPrefix>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <!--用于切换分支，修复bug mvn release:branch-->
                     <branchBase>https://github.com/roc-wong/myriad-test/branches</branchBase>
-                    <!--配置tag，用于版本发布，mvn release:prepare,rollback,perform-->
                     <tagBase>https://github.com/roc-wong/myriad-test/tags</tagBase>
                     <useReleaseProfile>false</useReleaseProfile>
                 </configuration>
@@ -91,10 +312,44 @@
     </build>
 
     <scm>
-        <connection>scm:git:git@github.com:roc-wong/myriad-test.git</connection>
+        <connection>scm:git:https://github.com/roc-wong/myriad-test.git</connection>
         <url>https://github.com/roc-wong/myriad-test</url>
-        <developerConnection>scm:git:git@github.com:roc-wong/myriad-test.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/roc-wong/myriad-test.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
+
+    <!--<repositories>
+        <repository>
+            <id>local_nexus_releases</id>
+            <name>core Release Repository</name>
+            <url>http://10.29.181.13:8081/nexus/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>local_nexus_snapshots</id>
+            <name>core Release Repository</name>
+            <url>http://10.29.181.13:8081/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>local_nexus_3rd_party</id>
+            <name>core Release Repository</name>
+            <url>http://10.29.181.13:8081/nexus/content/repositories/thirdparty/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>-->
 
     <distributionManagement>
         <repository>
@@ -108,7 +363,6 @@
             <url>http://10.29.181.13:8081/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-
 
     <organization>
         <name>中泰证券</name>
@@ -127,7 +381,24 @@
             </roles>
             <timezone>+8</timezone>
         </developer>
+        <developer>
+            <id>lan</id>
+            <name>Lan wong</name>
+            <email>dalanlan_123@163.com</email>
+            <organization>中泰证券</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
     </developers>
 
-
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 </project>
