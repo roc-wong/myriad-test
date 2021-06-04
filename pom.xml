@@ -47,7 +47,7 @@
         <jcl-over-slf4j.version>1.7.29</jcl-over-slf4j.version>
         <jul-to-slf4j.version>1.7.29</jul-to-slf4j.version>
         <truth.version>0.42</truth.version>
-        <httpclient.version>4.5.3</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <!-- IntelliJ grouses the following dynamic properties.
         Workaround: Settings > Build, Execution, Development > Build Tools > Maven > Runner > Properties.
         Add git.commit.time and git.commit.id.abbrev with empty value. -->
